@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import LoginPage from './pages/Login'
 import RegistrationPage from './pages/Register'
+import ProtectedRoute from './routes/ProtectedRoute'
 
 function App() {
   return (
@@ -13,7 +14,14 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegistrationPage />} />
+        <Route
+          path="/register"
+          element={
+            <ProtectedRoute>
+              <RegistrationPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </div>
   )

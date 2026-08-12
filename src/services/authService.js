@@ -53,6 +53,26 @@ export const login = async ({ email, password }) => {
 }
 
 export const inviteUser = async (userDetails) => {
-  const response = await apiClient.post('/v1/admin/Users', userDetails)
-  return response.data
+  try {
+    const response = await apiClient.post('/v1/admin/Users', userDetails)
+    return response.data
+  } catch (error) {
+    const responseData = error.response?.data
+    const validationErrors = responseData?.errors
+
+    if (validationErrors) {
+      const messages = Object.values(validationErrors).flat()
+      throw new Error(messages.join(' '), { cause: error })
+    }
+
+    if (responseData?.detail) {
+      throw new Error(responseData.detail, { cause: error })
+    }
+
+    if (responseData?.title) {
+      throw new Error(responseData.title, { cause: error })
+    }
+
+    throw error
+  }
 }

@@ -50,7 +50,7 @@ function RegistrationPage() {
       setStatus('Invitation sent successfully.')
     } catch (error) {
       console.error(error)
-      setStatus('Unable to send invitation. Please check the details and try again.')
+      setStatus(error.message || 'Unable to send invitation. Please check the details and try again.')
     } finally {
       setSubmitting(false)
     }
