@@ -1,20 +1,32 @@
+import { useEffect } from 'react'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import { Link } from 'react-router-dom'
-import { register } from '../services/authService'
+import { Link, useNavigate } from 'react-router-dom'
+import { inviteUser, isLoggedIn } from '../services/authService'
 
 function RegistrationPage() {
+  const navigate = useNavigate()
   const initialValues = {
-    username: '',
+    name: '',
+    surname: '',
     email: '',
-    password: '',
-    confirmPassword: '',
+    role: '',
   }
+
+  useEffect(() => {
+    if (!isLoggedIn()) {
+      navigate('/login')
+    }
+  }, [navigate])
 
   const validate = (values) => {
     const errors = {}
 
-    if (!values.username.trim()) {
-      errors.username = 'Username is required'
+    if (!values.name.trim()) {
+      errors.name = 'Name is required'
+    }
+
+    if (!values.surname.trim()) {
+      errors.surname = 'Surname is required'
     }
 
     if (!values.email) {
@@ -23,37 +35,22 @@ function RegistrationPage() {
       errors.email = 'Enter a valid email address'
     }
 
-    if (!values.password) {
-      errors.password = 'Password is required'
-    } else if (values.password.length < 6) {
-      errors.password = 'Password must be at least 6 characters'
-    }
-
-    if (!values.confirmPassword) {
-      errors.confirmPassword = 'Confirm your password'
-    } else if (values.confirmPassword !== values.password) {
-      errors.confirmPassword = 'Passwords must match'
+    if (!values.role.trim()) {
+      errors.role = 'Role is required'
     }
 
     return errors
   }
 
   const handleSubmit = async (values, { resetForm, setSubmitting, setStatus }) => {
-    const registrationValues = {
-      username: values.username,
-      email: values.email,
-      password: values.password,
-    }
-
     try {
       setStatus(null)
-      const data = await register(registrationValues)
-      console.log(data)
+      await inviteUser(values)
       resetForm()
-      setStatus('Registration successful.')
+      setStatus('Invitation sent successfully.')
     } catch (error) {
       console.error(error)
-      setStatus('Unable to register. Please try again.')
+      setStatus('Unable to send invitation. Please check the details and try again.')
     } finally {
       setSubmitting(false)
     }
@@ -68,23 +65,25 @@ function RegistrationPage() {
       >
         {({ isSubmitting, status }) => (
           <Form className="auth-form">
-            <h1>Register</h1>
+            <h1>Invite User</h1>
 
             {status && <p className="form-status">{status}</p>}
 
             <div className="form-field">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="name">Name</label>
+              <Field id="name" name="name" type="text" autoComplete="given-name" />
+              <ErrorMessage name="name" component="span" className="form-error" />
+            </div>
+
+            <div className="form-field">
+              <label htmlFor="surname">Surname</label>
               <Field
-                id="username"
-                name="username"
+                id="surname"
+                name="surname"
                 type="text"
-                autoComplete="username"
+                autoComplete="family-name"
               />
-              <ErrorMessage
-                name="username"
-                component="span"
-                className="form-error"
-              />
+              <ErrorMessage name="surname" component="span" className="form-error" />
             </div>
 
             <div className="form-field">
@@ -94,41 +93,17 @@ function RegistrationPage() {
             </div>
 
             <div className="form-field">
-              <label htmlFor="password">Password</label>
-              <Field
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="new-password"
-              />
-              <ErrorMessage
-                name="password"
-                component="span"
-                className="form-error"
-              />
-            </div>
-
-            <div className="form-field">
-              <label htmlFor="confirmPassword">Confirm password</label>
-              <Field
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                autoComplete="new-password"
-              />
-              <ErrorMessage
-                name="confirmPassword"
-                component="span"
-                className="form-error"
-              />
+              <label htmlFor="role">Role</label>
+              <Field id="role" name="role" type="text" />
+              <ErrorMessage name="role" component="span" className="form-error" />
             </div>
 
             <button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? 'Registering...' : 'Register'}
+              {isSubmitting ? 'Sending...' : 'Send Invite'}
             </button>
 
             <p>
-              Already have an account? <Link to="/login">Login</Link>
+              Need to sign in again? <Link to="/login">Login</Link>
             </p>
           </Form>
         )}

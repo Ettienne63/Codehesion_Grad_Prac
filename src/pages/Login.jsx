@@ -1,11 +1,12 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { login } from '../services/authService'
 
 function LoginForm() {
+  const navigate = useNavigate()
   const initialValues = {
-    email: '',
-    password: '',
+    email: 'admin@codehesion.co.za',
+    password: 'P@ssword1',
   }
 
   const validate = (values) => {
@@ -27,8 +28,8 @@ function LoginForm() {
   const handleSubmit = async (values, { setSubmitting, setStatus }) => {
     try {
       setStatus(null)
-      const data = await login(values)
-      console.log(data)
+      await login(values)
+      navigate('/register')
     } catch (error) {
       console.error(error)
       setStatus('Unable to login. Please check your details and try again.')
