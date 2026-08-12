@@ -1,6 +1,7 @@
 import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import CategoryWords from './pages/CategoryWords'
 import Home from './pages/Home'
 import LoginPage from './pages/Login'
 import RegistrationPage from './pages/Register'
@@ -17,6 +18,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/home/categories/:categoryId/words"
+          element={
+            <ProtectedRoute>
+              <CategoryWords />
             </ProtectedRoute>
           }
         />

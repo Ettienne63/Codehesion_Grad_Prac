@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { getCategories } from '../services/categoryService'
 
 function Home() {
@@ -41,10 +42,15 @@ function Home() {
       {!isLoading && !error && categories.length > 0 && (
         <section className="category-grid">
           {categories.map((category) => (
-            <article className="category-card" key={category.id}>
+            <Link
+              className="category-card"
+              key={category.id}
+              to={`/home/categories/${category.id}/words`}
+            >
               <span className="category-id">#{category.id}</span>
               <h2>{category.name}</h2>
-            </article>
+              <span className="category-link-text">View words</span>
+            </Link>
           ))}
         </section>
       )}
