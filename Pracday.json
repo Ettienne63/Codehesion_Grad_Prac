@@ -1,0 +1,1296 @@
+{
+	"info": {
+		"_postman_id": "abef1902-6c3f-40f7-ad4e-bc364ad845d9",
+		"name": "eDeaf",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10466462"
+	},
+	"item": [
+		{
+			"name": "Authenticate",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "{{clientId}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{clientSecret}}",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "{{scope}}",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "{{username}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://edeaf-api-staging.azurewebsites.net/connect/token",
+							"protocol": "https",
+							"host": [
+								"edeaf-api-staging",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Current",
+					"item": [
+						{
+							"name": "Get Current User",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/v1/admin/Users/current",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"v1",
+										"admin",
+										"Users",
+										"current"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Current User",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Brendon\",\n    \"lastName\": \"van Biljoen\",\n    \"email\": \"admin@codehesion.co.za\"   \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/v1/admin/Users/current",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"v1",
+										"admin",
+										"Users",
+										"current"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/connect/userinfo",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"connect",
+										"userinfo"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "All",
+					"item": [
+						{
+							"name": "Get Users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/v1/admin/Users",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"v1",
+										"admin",
+										"Users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/v1/admin/Users/:id",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"Users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "bef4a7dc-200b-4831-98fb-08456fc39de2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invite User",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Keaton\",\n  \"surname\": \"Roux\",\n  \"email\": \"keaton@codehesion.co.za\",\n  \"role\": \"Administrator\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/v1/admin/Users",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"v1",
+										"admin",
+										"Users"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "7",
+											"disabled": true
+										},
+										{
+											"key": "pageSize",
+											"value": "2",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Forgot Password",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"admin@codehesion.co.za\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/v1/admin/Users/forgotPassword",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"v1",
+										"admin",
+										"Users",
+										"forgotPassword"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "7",
+											"disabled": true
+										},
+										{
+											"key": "pageSize",
+											"value": "2",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reset Password",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"token\": \"\",\n    \"email\": \"brendon@codehesion.co.za\",\n    \"password\": \"P@ssword1\",\n    \"confirmPassword\": \"P@ssword1\"\n}"
+								},
+								"url": {
+									"raw": "{{host}}/v1/admin/Users/resetPassword",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"v1",
+										"admin",
+										"Users",
+										"resetPassword"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "7",
+											"disabled": true
+										},
+										{
+											"key": "pageSize",
+											"value": "2",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Brendon\",\n    \"lastName\": \"van Biljoen\",\n    \"email\": \"brendon@codehesion.co.za\",\n    \"role\": \"Administrator\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/v1/admin/Users/:id",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"v1",
+										"admin",
+										"Users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "493cd8e9-6e0a-43df-9fac-dc6d5c9171ac"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Tags",
+			"item": [
+				{
+					"name": "Get All Tags",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Version",
+								"value": "1",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Medical2\",\n    \"color\": \"#eeeee\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/v1/admin/Tags",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"Tags"
+							],
+							"query": [
+								{
+									"key": "pageSize",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tag",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Medical\",\n    \"color\": \"#eeeee\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/v1/admin/Tags",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"Tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Tag",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"name\": \"Medical2\",\n \"color\": \"#eeeee\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/admin/Tags/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"admin",
+								"Tags",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "44"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Tag",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/v1/admin/Tags/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"Tags",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Words To Tag",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"wordIds\": [47]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/v1/admin/Tags/:id/words",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"Tags",
+								":id",
+								"words"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Words",
+			"item": [
+				{
+					"name": "Create Word",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": [
+										"/home/work/notes/eDeaf/videos/abcess.m4v",
+										"/home/work/notes/eDeaf/videos/Absent (2 variations).m4v",
+										"/home/work/notes/eDeaf/videos/Last year (2 variations).m4v"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/v1/admin/Words",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"Words"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Words",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{host}}/v1/admin/Words",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"Words"
+							],
+							"query": [
+								{
+									"key": "wordfilter",
+									"value": "published",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "var",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Word Video",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/v1/Words/:id/video",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"Words",
+								":id",
+								"video"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete word",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/v1/admin/Words/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"Words",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "43"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Word",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"variation\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/v1/admin/Words/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"Words",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "43"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Publish",
+					"item": [
+						{
+							"name": "Publish Category",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/v1/admin/categories/:id/publish",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"v1",
+										"admin",
+										"categories",
+										":id",
+										"publish"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unpublish Category",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/v1/admin/categories/:id/unpublish",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"v1",
+										"admin",
+										"categories",
+										":id",
+										"unpublish"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/v1/admin/categories",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/v1/admin/categories/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"categories",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add One Word To Category",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"wordId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/v1/admin/categories/:id/words",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"categories",
+								":id",
+								"words"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove One Word From Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"wordId\": 43\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/v1/admin/categories/:id/words",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"categories",
+								":id",
+								"words"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Features",
+			"item": [
+				{
+					"name": "Create Feature",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "This is a test",
+									"type": "text"
+								},
+								{
+									"key": "FeatureType",
+									"value": "ExternalLink",
+									"type": "text"
+								},
+								{
+									"key": "StartDate",
+									"value": "2021-06-02",
+									"type": "text"
+								},
+								{
+									"key": "EndDate",
+									"value": "2021-07-02",
+									"type": "text"
+								},
+								{
+									"key": "Image",
+									"type": "file",
+									"src": "/home/work/pictures/002.jpg"
+								},
+								{
+									"key": "Target",
+									"value": "https://codehesion.co.za",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/v1/admin/Features",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"Features"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Feature",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "This is a test",
+									"type": "text"
+								},
+								{
+									"key": "FeatureType",
+									"value": "ExternalLink",
+									"type": "text"
+								},
+								{
+									"key": "StartDate",
+									"value": "2021-06-02",
+									"type": "text"
+								},
+								{
+									"key": "EndDate",
+									"value": "2021-07-02",
+									"type": "text"
+								},
+								{
+									"key": "Image",
+									"type": "file",
+									"src": "/home/work/pictures/002.jpg"
+								},
+								{
+									"key": "Target",
+									"value": "https://codehesion.co.za",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/v1/admin/Features/2/image",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"Features",
+								"2",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Feature Copy 2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "This is a test",
+									"type": "text"
+								},
+								{
+									"key": "FeatureType",
+									"value": "ExternalLink",
+									"type": "text"
+								},
+								{
+									"key": "StartDate",
+									"value": "2021-06-02",
+									"type": "text"
+								},
+								{
+									"key": "EndDate",
+									"value": "2021-07-02",
+									"type": "text"
+								},
+								{
+									"key": "Image",
+									"type": "file",
+									"src": "/home/work/pictures/002.jpg"
+								},
+								{
+									"key": "Target",
+									"value": "https://codehesion.co.za",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/v1/admin/Features",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"Features"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Feature Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "This is a test",
+									"type": "text"
+								},
+								{
+									"key": "FeatureType",
+									"value": "ExternalLink",
+									"type": "text"
+								},
+								{
+									"key": "StartDate",
+									"value": "2021-06-02",
+									"type": "text"
+								},
+								{
+									"key": "EndDate",
+									"value": "2021-07-02",
+									"type": "text"
+								},
+								{
+									"key": "Image",
+									"type": "file",
+									"src": "/home/work/pictures/002.jpg"
+								},
+								{
+									"key": "Target",
+									"value": "https://codehesion.co.za",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:5021/test",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5021",
+							"path": [
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Feature",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"StartDate\": \"2021-12-12\",\n    \"EndDate\": \"2021-12-13\",\n    \"Target\": \"https://google.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/v1/admin/Features/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"Features",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Feature",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"StartDate\": \"2021-12-12\",\n    \"EndDate\": \"2021-12-13\",\n    \"Target\": \"https://google.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/v1/admin/Features/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"v1",
+								"admin",
+								"Features",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "password",
+				"value": "{{password}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{username}}",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "{{scope}}",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "{{clientSecret}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{clientId}}",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "{{host}}/connect/token",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "password_credentials",
+				"type": "string"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "https://localhost:5001/signin-oidc",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "https://localhost:5001/connect/authorize",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "Edeaf",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "https://edeaf-api-staging.azurewebsites.net",
+			"type": "string"
+		},
+		{
+			"key": "clientId",
+			"value": "web-dashboard",
+			"type": "string"
+		},
+		{
+			"key": "clientSecret",
+			"value": "SuperSecretPassword",
+			"type": "string"
+		},
+		{
+			"key": "scope",
+			"value": "openid profile role email offline_access adminApi mobileApi",
+			"type": "string"
+		},
+		{
+			"key": "username",
+			"value": "admin@codehesion.co.za",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "P@ssword1",
+			"type": "string"
+		}
+	]
+}
