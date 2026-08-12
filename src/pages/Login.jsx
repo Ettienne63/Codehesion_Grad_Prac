@@ -29,7 +29,7 @@ function LoginForm() {
     try {
       setStatus(null)
       await login(values)
-      navigate('/register')
+      navigate('/home')
     } catch (error) {
       console.error(error)
       setStatus('Unable to login. Please check your details and try again.')
